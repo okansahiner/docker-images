@@ -8,7 +8,7 @@ The Images is based on Centos7 with some troubleshooting tools installed;
 * telnet
 * kubectl
 * oc
-* openresty server installed 
+* openresty server (nginx with lua) 
 
 nginx.conf taken from gcr.io/google-containers/echoserver
 

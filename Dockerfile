@@ -6,7 +6,8 @@ LABEL name="kube-diag" \
     license="GPLv2" \
     build-date="20170717" \
     oc-client-version="v1.5.1-7b451fc-linux-64bit" \
-    kubectl-version="1.7.0"  
+    kubectl-version="1.7.0" \
+    maintainer="sahinerokan@gmail.com" 
 
 RUN yum install -y \
 wget \
