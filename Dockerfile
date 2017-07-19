@@ -36,6 +36,10 @@ RUN ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
 ADD nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 
+RUN chmod -R g+w /usr/local/openresty
+
+USER 1000000
+
 ENV PATH /usr/local/openresty/nginx/sbin:$PATH
 
 
