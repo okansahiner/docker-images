@@ -35,14 +35,13 @@ RUN ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log
 RUN ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log 
 
 ADD nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
+ADD entrypoint.sh /entrypoint.sh
 
 RUN chmod -R g+w /usr/local/openresty
 
 USER 1000000
 
-ENV PATH /usr/local/openresty/nginx/sbin:$PATH
-
 
 EXPOSE 8080
-CMD [ "nginx", "-g", "daemon off;" ]
+ENTRYPOINT ["/entrypoint.sh"]
 
