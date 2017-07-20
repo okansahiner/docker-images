@@ -38,7 +38,7 @@ ADD nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 ADD entrypoint.sh /entrypoint.sh
 
 RUN chmod -R g+w /usr/local/openresty
-RUN chmod g+wx /entrypoint.sh
+RUN chmod g+x /entrypoint.sh
 
 USER 1000000
 
