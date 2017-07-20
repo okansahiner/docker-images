@@ -37,7 +37,8 @@ RUN ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 ADD nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 ADD entrypoint.sh /entrypoint.sh
 
-RUN chmod -R g+w /usr/local/openresty /entrypoint.sh
+RUN chmod -R g+w /usr/local/openresty
+RUN chmod g+wx /entrypoint.sh
 
 USER 1000000
 
