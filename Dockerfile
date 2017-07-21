@@ -9,36 +9,31 @@ LABEL name="kube-diag" \
     kubectl-version="1.7.0" \
     maintainer="sahinerokan@gmail.com" 
 
-RUN yum install -y \
+RUN yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo \
+&& yum install -y \
 wget \
 nmap \
 ping \
 telnet \
-curl 
-
-RUN mkdir -p /tmp/oc \
+curl \
+openresty \
+&& yum clean all \
 && wget -q https://storage.googleapis.com/kubernetes-release/release/v1.7.0/bin/linux/amd64/kubectl -O /bin/kubectl \
-&& chmod 755 /bin/kubectl
-
-
-RUN wget -q https://github.com/openshift/origin/releases/download/v1.5.1/openshift-origin-client-tools-v1.5.1-7b451fc-linux-64bit.tar.gz -O /tmp/oc/oc_client.tar.gz \
-&& tar -zxvf /tmp/oc/oc_client.tar.gz -C /tmp/oc/ \
-&& mv /tmp/oc/openshift-origin-client-tools-v1.5.1-7b451fc-linux-64bit/oc /bin/ \
-&& rm -rf /tmp/oc 
-
-RUN yum install -y yum-utils \
-&& yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo \
-&& yum install -y openresty \
-&& wget -q https://raw.githubusercontent.com/bungle/lua-resty-template/master/lib/resty/template.lua -O /usr/local/openresty/site/lualib/template.lua
-
-RUN ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log
-RUN ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log 
+&& chmod 755 /bin/kubectl \
+&& mkdir /bin/oc_client \
+&& wget -q https://github.com/openshift/origin/releases/download/v1.5.1/openshift-origin-client-tools-v1.5.1-7b451fc-linux-64bit.tar.gz -O /bin/oc_client/oc_client.tar.gz \
+&& tar -zxvf /bin/oc_client/oc_client.tar.gz -C /bin/oc_client/ \
+&& mv /bin/oc_client/openshift-origin-client-tools-v1.5.1-7b451fc-linux-64bit/oc /bin/ \
+&& rm -rf /bin/oc_client \ 
+&& wget -q https://raw.githubusercontent.com/bungle/lua-resty-template/master/lib/resty/template.lua -O /usr/local/openresty/site/lualib/template.lua \
+&& ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
+&& ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log 
 
 ADD nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 ADD entrypoint.sh /entrypoint.sh
 
-RUN chmod -R g+w /usr/local/openresty
-RUN chmod g+x /entrypoint.sh
+RUN chmod -R g+w /usr/local/openresty \
+&& chmod g+x /entrypoint.sh
 
 USER 1000000
 
