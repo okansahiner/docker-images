@@ -19,7 +19,7 @@ or
 `docker run -it -p 8080:8080 okansahiner/kube-diag:latest`
 
 ```
-root@lxoscp01 ~]# oc rsh kube-diag-1-z0csq                                                                            
+root@openshift-master~]# oc rsh kube-diag-1-z0csq                                                                            
 sh-4.2$ nmap jenkins.cicd.svc.cluster.local
 
 Starting Nmap 6.40 ( http://nmap.org ) at 2017-07-21 09:04 UTC
