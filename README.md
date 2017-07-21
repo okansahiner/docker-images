@@ -1,4 +1,4 @@
-# Docker Container for Kubernetes and Openshift Diagnostics & Troubleshooting
+# Docker Container for Kubernetes and Openshift SDN Testing, Diagnostics & Troubleshooting
 
 The Images is based on Centos7 with some troubleshooting tools installed;
 * nmap
@@ -6,11 +6,9 @@ The Images is based on Centos7 with some troubleshooting tools installed;
 * curl
 * wget
 * telnet
-* kubectl
-* oc
-* openresty server (nginx with lua) 
-
-nginx.conf taken from gcr.io/google-containers/echoserver
+* kubectl 
+* oc client 
+* openresty server (nginx with lua binary) 
 
 to use:
 
@@ -19,5 +17,21 @@ to use:
 or
 
 `docker run -it -p 8080:8080 okansahiner/kube-diag:latest`
+
+```
+root@lxoscp01 ~]# oc rsh kube-diag-1-z0csq                                                                            
+sh-4.2$ nmap jenkins.cicd.svc.cluster.local
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2017-07-21 09:04 UTC
+Nmap scan report for jenkins.cicd.svc.cluster.local (172.30.108.143)
+Host is up (0.0011s latency).
+Not shown: 999 filtered ports
+PORT   STATE SERVICE
+80/tcp open  http
+
+Nmap done: 1 IP address (1 host up) scanned in 5.39 seconds
+sh-4.2$
+```
+![](images/kube_diag_web.png)
 
 
